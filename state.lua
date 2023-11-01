@@ -28,5 +28,6 @@ return {
 		width = 800,
 		height = 600,
 		ratio = 800 / 600
-	}
+	},
+	entity_dragged = 0,
 }

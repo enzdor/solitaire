@@ -4,6 +4,7 @@ local entities = require("entities")
 local input = require("input")
 local state = require("state")
 
+math.randomseed(os.time())
 love.load = function()
 	entities.entities = entities.newEntities()
 	state.loading = false
@@ -61,5 +62,11 @@ love.textinput = function(t)
 end
 
 love.update = function(dt)
+	for _, entity in ipairs(entities.entities) do
+		if entity.id == state.entity_dragged then
+			entity.x_pos = love.mouse.getX() - entity.dragging.x_diff
+			entity.y_pos = love.mouse.getY() - entity.dragging.y_diff
+		end
+	end
 	world:update(dt)
 end

@@ -1,6 +1,8 @@
 # Solitaire clone
 
-a
+TODO:
+- See how to place one card over another
+
 Plan:
 - Entities
     - Board
@@ -14,6 +16,8 @@ Card:
 - Suit
 - Rank
 - face down or face up
+If the card is face down, check if it can be flipped.
+If it is facedown, it cannot be moved.
 
 Game loop
 1. deal cards
