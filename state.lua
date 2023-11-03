@@ -27,7 +27,10 @@ return {
 	screen = {
 		width = 800,
 		height = 600,
-		ratio = 800 / 600
+		ratio = 800 / 600,
+		change_rate = 1,
+		x_translate = 0,
+		y_translate = 0,
 	},
 	entity_dragged_id = 0, -- id of the entity being dragged
 }

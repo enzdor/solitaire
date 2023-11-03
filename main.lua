@@ -14,11 +14,17 @@ love.draw = function()
 	local window_width, window_height = love.window.getMode()
 	if window_width / window_height > state.screen.ratio then
 		local change_rate = window_height / state.screen.height
-		love.graphics.translate((window_width - state.screen.width * change_rate) / 2, 0)
+		local x_translate = (window_width - state.screen.width * change_rate) / 2
+		state.screen.change_rate = change_rate
+		state.screen.x_translate = x_translate
+		love.graphics.translate(x_translate, 0)
 		love.graphics.scale(change_rate, change_rate)
 	else
 		local change_rate = window_width / state.screen.width
-		love.graphics.translate(0, (window_height - state.screen.height * change_rate) / 2)
+		local y_translate = (window_height - state.screen.height * change_rate) / 2
+		state.screen.y_translate = y_translate
+		state.screen.change_rate = change_rate
+		love.graphics.translate(0, y_translate)
 		love.graphics.scale(change_rate, change_rate)
 	end
 
@@ -64,8 +70,14 @@ end
 love.update = function(dt)
 	for _, entity in ipairs(entities.entities) do
 		if entity.id == state.entity_dragged_id then
-			entity.x_pos = love.mouse.getX() - entity.dragging.x_diff
-			entity.y_pos = love.mouse.getY() - entity.dragging.y_diff
+			local x = love.mouse.getX()
+			local y = love.mouse.getY()
+			x = x - state.screen.x_translate
+			y = y - state.screen.y_translate
+			x = x / state.screen.change_rate
+			y = y / state.screen.change_rate
+			entity.x_pos = x - entity.dragging.x_diff
+			entity.y_pos = y - entity.dragging.y_diff
 		end
 	end
 	world:update(dt)

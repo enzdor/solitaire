@@ -1,7 +1,8 @@
 # Solitaire clone
 
 TODO:
-- See how to place one card over another
+- make cards align when over another, and make the are over card be the whole card not just the cursor
+- make helper for translating and scaling mouse pos?
 
 Plan:
 - Entities
