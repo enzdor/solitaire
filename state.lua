@@ -29,5 +29,5 @@ return {
 		height = 600,
 		ratio = 800 / 600
 	},
-	entity_dragged = 0,
+	entity_dragged_id = 0, -- id of the entity being dragged
 }

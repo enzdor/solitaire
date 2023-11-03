@@ -4,25 +4,37 @@ local entities = require("entities")
 love.mousepressed = function(x, y, button)
 	if button == 1 then
 		for _, entity in ipairs(entities.entities) do
-			if entity.type == "card" then
-				if x > entity.x_pos and x < entity.x_pos + state.card.width
-				    and y > entity.y_pos and y < entity.y_pos + state.card.height then
-					entity.dragging.active = true
-					entity.dragging.x_diff = x - entity.x_pos
-					entity.dragging.y_diff = y - entity.y_pos
-					state.entity_dragged = entity.id
-				end
+			if entity.type == "card" and x > entity.x_pos and x < entity.x_pos + state.card.width
+			    and y > entity.y_pos and y < entity.y_pos + state.card.height then
+				entity.dragging.active = true
+				entity.dragging.x_diff = x - entity.x_pos
+				entity.dragging.y_diff = y - entity.y_pos
+				state.entity_dragged_id = entity.id
 			end
 		end
 	end
 end
 
-love.mousereleased = function (x, y, button)
+love.mousereleased = function(x, y, button)
 	if button == 1 then
-		for _, entity in ipairs(entities.entities) do
-			if entity.id == state.entity_dragged then
-				entity.dragging.active = false
-				state.entity_dragged = 0
+		for _, card_dragged in ipairs(entities.entities) do
+			if card_dragged.id == state.entity_dragged_id then
+				for _, card_under in ipairs(entities.entities) do
+					if card_under.type == "card" and card_under.id ~= state.entity_dragged_id
+					    and x > card_under.x_pos and x < card_under.x_pos + state.card.width
+					    and y > card_under.y_pos and y < card_under.y_pos + state.card.height
+					then
+						card_dragged.dragging.active = false
+						state.entity_dragged_id = 0
+						card_dragged.x_pos_orig = card_dragged.x_pos
+						card_dragged.y_pos_orig = card_dragged.y_pos
+						return
+					end
+				end
+				card_dragged.x_pos = card_dragged.x_pos_orig
+				card_dragged.y_pos = card_dragged.y_pos_orig
+				card_dragged.dragging.active = false
+				state.entity_dragged_id = 0
 			end
 		end
 	end

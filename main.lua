@@ -63,7 +63,7 @@ end
 
 love.update = function(dt)
 	for _, entity in ipairs(entities.entities) do
-		if entity.id == state.entity_dragged then
+		if entity.id == state.entity_dragged_id then
 			entity.x_pos = love.mouse.getX() - entity.dragging.x_diff
 			entity.y_pos = love.mouse.getY() - entity.dragging.y_diff
 		end
