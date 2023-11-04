@@ -24,7 +24,6 @@ return function (x_pos, y_pos, id)
 	entity.fixture = love.physics.newFixture(entity.body, entity.shape)
 	entity.fixture:setUserData(entity)
 
-
 	entity.draw = function ()
 		love.graphics.setColor(state.palette.red)
 		love.graphics.rectangle("fill", entity.x_pos, entity.y_pos, state.card.width, state.card.height)

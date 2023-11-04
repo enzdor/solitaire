@@ -3,6 +3,7 @@ local world = require("world")
 local entities = require("entities")
 local input = require("input")
 local state = require("state")
+local mouse_pos = require("mouse-pos")
 
 math.randomseed(os.time())
 love.load = function()
@@ -70,12 +71,8 @@ end
 love.update = function(dt)
 	for _, entity in ipairs(entities.entities) do
 		if entity.id == state.entity_dragged_id then
-			local x = love.mouse.getX()
-			local y = love.mouse.getY()
-			x = x - state.screen.x_translate
-			y = y - state.screen.y_translate
-			x = x / state.screen.change_rate
-			y = y / state.screen.change_rate
+			local x = mouse_pos.getRealX(love.mouse.getX())
+			local y = mouse_pos.getRealY(love.mouse.getY())
 			entity.x_pos = x - entity.dragging.x_diff
 			entity.y_pos = y - entity.dragging.y_diff
 		end

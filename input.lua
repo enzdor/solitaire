@@ -1,11 +1,10 @@
 local state = require("state")
 local entities = require("entities")
+local mouse_pos = require("mouse-pos")
 
 love.mousepressed = function(x, y, button)
-	x = x - state.screen.x_translate
-	y = y - state.screen.y_translate
-	x = x / state.screen.change_rate
-	y = y / state.screen.change_rate
+	x = mouse_pos.getRealX(x)
+	y = mouse_pos.getRealY(y)
 	if button == 1 then
 		for _, entity in ipairs(entities.entities) do
 			if entity.type == "card" and x > entity.x_pos and x < entity.x_pos + state.card.width
@@ -20,10 +19,8 @@ love.mousepressed = function(x, y, button)
 end
 
 love.mousereleased = function(x, y, button)
-	x = x + state.screen.x_translate
-	y = y - state.screen.y_translate
-	x = x / state.screen.change_rate
-	y = y / state.screen.change_rate
+	x = mouse_pos.getRealX(x)
+	y = mouse_pos.getRealY(y)
 	if button == 1 then
 		for _, card_dragged in ipairs(entities.entities) do
 			if card_dragged.id == state.entity_dragged_id then
