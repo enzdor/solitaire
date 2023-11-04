@@ -31,8 +31,10 @@ love.mousereleased = function(x, y, button)
 					then
 						card_dragged.dragging.active = false
 						state.entity_dragged_id = 0
-						card_dragged.x_pos_orig = card_dragged.x_pos
-						card_dragged.y_pos_orig = card_dragged.y_pos
+						card_dragged.x_pos_orig = card_under.x_pos
+						card_dragged.y_pos_orig = card_under.y_pos + state.card.height / 4
+						card_dragged.x_pos = card_under.x_pos
+						card_dragged.y_pos = card_under.y_pos + state.card.height / 4
 						return
 					end
 				end

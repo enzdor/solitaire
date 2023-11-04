@@ -1,7 +1,7 @@
 local world = require("world")
 local state = require("state")
 
-return function (x_pos, y_pos, id)
+return function(x_pos, y_pos, id)
 	local entity = {}
 
 	entity.type = "card"
@@ -19,14 +19,12 @@ return function (x_pos, y_pos, id)
 		y_diff = 0
 	}
 
-	entity.body = love.physics.newBody(world, x_pos + state.card.width / 2, y_pos + state.card.height / 2)
-	entity.shape = love.physics.newRectangleShape(state.card.width, state.card.height)
-	entity.fixture = love.physics.newFixture(entity.body, entity.shape)
-	entity.fixture:setUserData(entity)
+	entity.sprite = love.graphics.newImage("resources/cards/7_clubs.png")
 
-	entity.draw = function ()
-		love.graphics.setColor(state.palette.red)
-		love.graphics.rectangle("fill", entity.x_pos, entity.y_pos, state.card.width, state.card.height)
+	entity.draw = function()
+		love.graphics.setColor(state.palette.white)
+		-- love.graphics.rectangle("fill", entity.x_pos, entity.y_pos, state.card.width, state.card.height)
+		love.graphics.draw(entity.sprite, entity.x_pos, entity.y_pos, 0, 0.39, 0.365)
 	end
 
 	return entity

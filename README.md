@@ -1,7 +1,12 @@
 # Solitaire clone
 
 TODO:
-- make cards align when over another, and make the are over card be the whole card not just the cursor
+- add stock, waste
+- pile and foundations
+- and add layering
+
+MAYBE:
+- make the are over a card be the whole card over the under card, not just the cursor (complications when card is over two cards, would have to check if cursor is over one or the other card, if it isn't over any go back to orig pos)
 
 Plan:
 - Entities
@@ -42,3 +47,4 @@ To move one card from place to place, check if mouse is over section where card 
 The main function controlling the mechanics will called something like move() if move is true,
 the card will be moved along with the cursor as long as the left click is held down.
 
+- Cards by Byron Knoll https://code.google.com/archive/p/vector-playing-cards/ 
