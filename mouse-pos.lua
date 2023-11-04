@@ -4,9 +4,11 @@ return {
 	getRealX = function(x)
 		x = x - state.screen.x_translate
 		x = x / state.screen.change_rate
+		return x
 	end,
 	getRealY = function(y)
 		y = y - state.screen.y_translate
 		y = y / state.screen.change_rate
+		return y
 	end
 }
