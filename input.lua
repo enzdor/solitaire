@@ -6,15 +6,16 @@ love.mousepressed = function(x, y, button)
 	x = mouse_pos.getRealX(x)
 	y = mouse_pos.getRealY(y)
 	if button == 1 then
-		for _, entity in ipairs(entities.entities) do
-			if entity.type == "card" and x > entity.x_pos and x < entity.x_pos + state.card.width
-			    and y > entity.y_pos and y < entity.y_pos + state.card.height then
-				entity.dragging.active = true
-				entity.dragging.x_diff = x - entity.x_pos
-				entity.dragging.y_diff = y - entity.y_pos
-				state.entity_dragged_id = entity.id
-			end
-		end
+		-- drag card around
+		-- for _, card in ipairs(entity.cards) do
+		-- 	if card.type == "card" and x > card.x_pos and x < card.x_pos + state.card.width
+		-- 	    and y > card.y_pos and y < card.y_pos + state.card.height then
+		-- 		card.dragging.active = true
+		-- 		card.dragging.x_diff = x - card.x_pos
+		-- 		card.dragging.y_diff = y - card.y_pos
+		-- 		state.entity_dragged_id = card.id
+		-- 	end
+		-- end
 	end
 end
 
@@ -22,28 +23,46 @@ love.mousereleased = function(x, y, button)
 	x = mouse_pos.getRealX(x)
 	y = mouse_pos.getRealY(y)
 	if button == 1 then
-		for _, card_dragged in ipairs(entities.entities) do
-			if card_dragged.id == state.entity_dragged_id then
-				for _, card_under in ipairs(entities.entities) do
-					if card_under.type == "card" and card_under.id ~= state.entity_dragged_id
-					    and x > card_under.x_pos and x < card_under.x_pos + state.card.width
-					    and y > card_under.y_pos and y < card_under.y_pos + state.card.height
-					then
-						card_dragged.dragging.active = false
-						state.entity_dragged_id = 0
-						card_dragged.x_pos_orig = card_under.x_pos
-						card_dragged.y_pos_orig = card_under.y_pos + state.card.height / 4
-						card_dragged.x_pos = card_under.x_pos
-						card_dragged.y_pos = card_under.y_pos + state.card.height / 4
-						return
-					end
-				end
-				card_dragged.x_pos = card_dragged.x_pos_orig
-				card_dragged.y_pos = card_dragged.y_pos_orig
-				card_dragged.dragging.active = false
-				state.entity_dragged_id = 0
-			end
+		-- draw card from stock to waste
+		for i = #entities.entities.stock.cards, 1, -1 do
+			entities.entities.stock.cards[i].x_pos = entities.entities.waste.x_pos
+			entities.entities.stock.cards[i].y_pos = entities.entities.waste.y_pos
+			entities.entities.stock.cards[i].x_pos_orig = entities.entities.waste.x_pos
+			entities.entities.stock.cards[i].y_pos_orig = entities.entities.waste.y_pos
+			entities.entities.stock.cards[i].face_up = true
+			entities.entities.waste.cards[#entities.entities.waste.cards+1] = entities.entities.stock.cards[i]
+			table.remove(entities.entities.stock.cards, i)
+			return
 		end
+		-- drag card around
+		-- for _, entity in ipairs(entities.entities) do
+		-- 	if entity.type == "stock" then
+		-- 		for _, card_dragged in ipairs(entity.cards) do
+		-- 			if card_dragged.id == state.entity_dragged_id then
+		-- 				for _, card_under in ipairs(entity.cards) do
+		-- 					if card_under.type == "card" and card_under.id ~= state.entity_dragged_id
+		-- 					    and x > card_under.x_pos and x < card_under.x_pos + state.card.width
+		-- 					    and y > card_under.y_pos and y < card_under.y_pos + state.card.height
+		-- 					then
+		-- 						card_dragged.dragging.active = false
+		-- 						state.entity_dragged_id = 0
+		-- 						card_dragged.x_pos_orig = card_under.x_pos
+		-- 						card_dragged.y_pos_orig = card_under.y_pos +
+		-- 						    state.card.height / 4
+		-- 						card_dragged.x_pos = card_under.x_pos
+		-- 						card_dragged.y_pos = card_under.y_pos +
+		-- 						    state.card.height / 4
+		-- 						return
+		-- 					end
+		-- 				end
+		-- 				card_dragged.x_pos = card_dragged.x_pos_orig
+		-- 				card_dragged.y_pos = card_dragged.y_pos_orig
+		-- 				card_dragged.dragging.active = false
+		-- 				state.entity_dragged_id = 0
+		-- 			end
+		-- 		end
+		-- 	end
+		-- end
 	end
 end
 

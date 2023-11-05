@@ -9,6 +9,7 @@ math.randomseed(os.time())
 love.load = function()
 	entities.entities = entities.newEntities()
 	state.loading = false
+	state.card.back = love.graphics.newImage("resources/cards/back.png")
 end
 
 love.draw = function()
@@ -30,11 +31,9 @@ love.draw = function()
 	end
 
 	if not state.loading then
-		for _, entity in ipairs(entities.entities) do
-			if entity.draw then
-				entity:draw()
-			end
-		end
+		entities.entities.board:draw()
+		entities.entities.stock:draw()
+		entities.entities.waste:draw()
 	end
 end
 
@@ -69,12 +68,12 @@ love.textinput = function(t)
 end
 
 love.update = function(dt)
-	for _, entity in ipairs(entities.entities) do
-		if entity.id == state.entity_dragged_id then
+	for _, card in ipairs(entities.entities.stock.cards) do
+		if card.id == state.entity_dragged_id then
 			local x = mouse_pos.getRealX(love.mouse.getX())
 			local y = mouse_pos.getRealY(love.mouse.getY())
-			entity.x_pos = x - entity.dragging.x_diff
-			entity.y_pos = y - entity.dragging.y_diff
+			card.x_pos = x - card.dragging.x_diff
+			card.y_pos = y - card.dragging.y_diff
 		end
 	end
 	world:update(dt)

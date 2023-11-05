@@ -1,9 +1,8 @@
 # Solitaire clone
 
 TODO:
-- add stock, waste
-- pile and foundations
-- and add layering
+- add pile 
+- add foundations
 
 MAYBE:
 - make the are over a card be the whole card over the under card, not just the cursor (complications when card is over two cards, would have to check if cursor is over one or the other card, if it isn't over any go back to orig pos)
@@ -34,7 +33,7 @@ Game loop
 7. if no longer able to make meaningful moves, the player has lost
 
 Mechanics
-- Move card from stock to waste
+- Move card from stock to waste [done]
 - Move card from waste to pile
 - Move card from pile to pile
 - Move card from pile to foundation

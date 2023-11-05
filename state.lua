@@ -10,7 +10,10 @@ return {
 	text = "",
 	card = {
 		width = 100,
-		height = 130
+		height = 130,
+		ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"},
+		suits = {"Spades", "Clubs", "Diamonds", "Hearts"},
+		back = {}
 	},
 	high_scores = {
 		{score = 0, name="NAME"},
