@@ -34,6 +34,7 @@ love.draw = function()
 		entities.entities.board:draw()
 		entities.entities.stock:draw()
 		entities.entities.waste:draw()
+		entities.entities.pile1:draw()
 	end
 end
 
@@ -68,7 +69,7 @@ love.textinput = function(t)
 end
 
 love.update = function(dt)
-	for _, card in ipairs(entities.entities.stock.cards) do
+	for _, card in ipairs(entities.entities.waste.cards) do
 		if card.id == state.entity_dragged_id then
 			local x = mouse_pos.getRealX(love.mouse.getX())
 			local y = mouse_pos.getRealY(love.mouse.getY())

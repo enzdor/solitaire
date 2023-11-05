@@ -9,6 +9,8 @@ return function ()
 	entity.fixture = love.physics.newFixture(entity.body, entity.shape)
 	entity.fixture:setUserData(entity)
 
+	entity.type = "board"
+
 	entity.draw = function (self)
 		love.graphics.setColor(state.palette.green)
 		love.graphics.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))

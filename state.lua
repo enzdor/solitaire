@@ -11,21 +11,22 @@ return {
 	card = {
 		width = 100,
 		height = 130,
-		ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"},
-		suits = {"Spades", "Clubs", "Diamonds", "Hearts"},
+		ranks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" },
+		suits = { "Spades", "Clubs", "Diamonds", "Hearts" },
 		back = {}
 	},
 	high_scores = {
-		{score = 0, name="NAME"},
-		{score = 0, name="NAME"},
-		{score = 0, name="NAME"},
+		{ score = 0, name = "NAME" },
+		{ score = 0, name = "NAME" },
+		{ score = 0, name = "NAME" },
 	},
 	sounds = {},
 	palette = {
-		red = { 1,   0,    0,   1 },
-		green = { 0,   0.5, 0,   1 },
-		blue = { 0,   0, 1,   1 },
-		white = { 1,   1,    1,   1 },
+		red = { 1, 0, 0, 1 },
+		green = { 0, 0.5, 0, 1 },
+		blue = { 0, 0, 1, 1 },
+		white = { 1, 1, 1, 1 },
+		dark_green = { 0, 0.4, 0, 1 },
 	},
 	screen = {
 		width = 800,

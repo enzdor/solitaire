@@ -3,7 +3,7 @@ return function (x_pos, y_pos)
 
 	entity.x_pos = x_pos
 	entity.y_pos = y_pos
-	entity.type = "stock"
+	entity.type = "waste"
 	entity.cards = {}
 
 	entity.draw = function (self)

@@ -1,7 +1,7 @@
 # Solitaire clone
 
 TODO:
-- add pile 
+- cards only need to be able to placed above bottomost cards
 - add foundations
 
 MAYBE:
