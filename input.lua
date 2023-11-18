@@ -27,19 +27,35 @@ love.mousereleased = function(x, y, button)
 	x = mouse_pos.getRealX(x)
 	y = mouse_pos.getRealY(y)
 	if button == 1 then
-		-- draw card from stock to waste
 		if x > entities.entities.stock.x_pos and x < entities.entities.stock.x_pos + state.card.width
 		    and y > entities.entities.stock.y_pos and y < entities.entities.stock.y_pos + state.card.height then
-			for i = #entities.entities.stock.cards, 1, -1 do
-				entities.entities.stock.cards[i].x_pos = entities.entities.waste.x_pos
-				entities.entities.stock.cards[i].y_pos = entities.entities.waste.y_pos
-				entities.entities.stock.cards[i].x_pos_orig = entities.entities.waste.x_pos
-				entities.entities.stock.cards[i].y_pos_orig = entities.entities.waste.y_pos
-				entities.entities.stock.cards[i].face_up = true
-				entities.entities.waste.cards[#entities.entities.waste.cards + 1] = entities.entities
-				    .stock.cards[i]
-				table.remove(entities.entities.stock.cards, i)
-				return
+			if #entities.entities.stock.cards > 0 then
+				-- draw card from stock to waste
+				for i = #entities.entities.stock.cards, 1, -1 do
+					entities.entities.stock.cards[i].x_pos = entities.entities.waste.x_pos
+					entities.entities.stock.cards[i].y_pos = entities.entities.waste.y_pos
+					entities.entities.stock.cards[i].x_pos_orig = entities.entities.waste.x_pos
+					entities.entities.stock.cards[i].y_pos_orig = entities.entities.waste.y_pos
+					entities.entities.stock.cards[i].face_up = true
+					entities.entities.waste.cards[#entities.entities.waste.cards + 1] = entities
+					    .entities
+					    .stock.cards[i]
+					table.remove(entities.entities.stock.cards, i)
+					return
+				end
+			else
+				-- recycle waste
+				for i = #entities.entities.waste.cards, 1, -1 do
+					entities.entities.waste.cards[i].x_pos = entities.entities.stock.x_pos
+					entities.entities.waste.cards[i].y_pos = entities.entities.stock.y_pos
+					entities.entities.waste.cards[i].x_pos_orig = entities.entities.stock.x_pos
+					entities.entities.waste.cards[i].y_pos_orig = entities.entities.stock.y_pos
+					entities.entities.waste.cards[i].face_up = false
+					entities.entities.stock.cards[#entities.entities.stock.cards + 1] = entities
+					    .entities
+					    .waste.cards[i]
+					table.remove(entities.entities.waste.cards, i)
+				end
 			end
 		end
 		-- drag card around

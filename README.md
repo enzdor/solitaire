@@ -1,7 +1,8 @@
 # Solitaire clone
 
 TODO:
-- add passing (moving waste to stock)
+- fix bug when moving one card to foundation can't move cards to stock
+- fix bug card not drawn when moved from pile to foundation
 - add rules for moving cards?
 
 MAYBE:
