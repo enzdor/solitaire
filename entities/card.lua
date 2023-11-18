@@ -13,6 +13,7 @@ return function(x_pos, y_pos, id, suit, rank, belongs_to)
 	entity.y_pos = y_pos
 	entity.x_pos_orig = x_pos
 	entity.y_pos_orig = y_pos
+	entity.bottom = false
 	entity.dragging = {
 		active = false,
 		x_diff = 0,

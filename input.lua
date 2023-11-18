@@ -73,12 +73,31 @@ love.mousereleased = function(x, y, button)
 
 		for key, entity in pairs(entities.entities) do
 			if entity.type == "pile" then
+				if entity.empty and x > entity.x_pos and x < entity.x_pos + state.card.width
+				    and y > entity.y_pos and y < entity.y_pos + state.card.height
+				then
+					entity.empty = false
+					card_dragged.dragging.active = false
+					card_dragged.bottom = true
+					state.entity_dragged_id = 0
+					card_dragged.x_pos_orig = entity.x_pos
+					card_dragged.y_pos_orig = entity.y_pos
+					card_dragged.x_pos = entity.x_pos
+					card_dragged.y_pos = entity.y_pos
+					entities.entities[key].cards[#entities.entities[key].cards + 1] =
+					    card_dragged
+					table.remove(entities.entities[card_dragged_key].cards,
+						card_dragged_index)
+					return
+				end
 				for _, card_under in ipairs(entity.cards) do
 					if card_under.id ~= state.entity_dragged_id
 					    and x > card_under.x_pos and x < card_under.x_pos + state.card.width
 					    and y > card_under.y_pos and y < card_under.y_pos + state.card.height
+					    and card_under.bottom
 					then
 						card_dragged.dragging.active = false
+						card_dragged.bottom = true
 						state.entity_dragged_id = 0
 						card_dragged.x_pos_orig = card_under.x_pos
 						card_dragged.y_pos_orig = card_under.y_pos +
@@ -86,26 +105,13 @@ love.mousereleased = function(x, y, button)
 						card_dragged.x_pos = card_under.x_pos
 						card_dragged.y_pos = card_under.y_pos +
 						    state.card.height / 4
+						entities.entities[key].cards[#entities.entities[key].cards].bottom = false
 						entities.entities[key].cards[#entities.entities[key].cards + 1] =
-						card_dragged
-						table.remove(entities.entities[card_dragged_key].cards, card_dragged_index)
+						    card_dragged
+						table.remove(entities.entities[card_dragged_key].cards,
+							card_dragged_index)
 						return
 					end
-				end
-				if entity.empty and x > entity.x_pos and x < entity.x_pos + state.card.width
-				    and y > entity.y_pos and y < entity.y_pos + state.card.height
-				then
-					card_dragged.dragging.active = false
-					state.entity_dragged_id = 0
-					card_dragged.x_pos_orig = entity.x_pos
-					card_dragged.y_pos_orig = entity.y_pos +
-					    state.card.height / 4
-					card_dragged.x_pos = entity.x_pos
-					card_dragged.y_pos = entity.y_pos +
-					    state.card.height / 4
-					entities.entities[key].cards[#entities.entities[key].cards + 1] = card_dragged
-					table.remove(entities.entities[card_dragged_key].cards, card_dragged_index)
-					return
 				end
 				card_dragged.x_pos = card_dragged.x_pos_orig
 				card_dragged.y_pos = card_dragged.y_pos_orig
