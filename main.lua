@@ -35,6 +35,7 @@ love.draw = function()
 		entities.entities.stock:draw()
 		entities.entities.waste:draw()
 		entities.entities.pile1:draw()
+		entities.entities.foundation1:draw()
 	end
 end
 
@@ -70,6 +71,22 @@ end
 
 love.update = function(dt)
 	for _, card in ipairs(entities.entities.waste.cards) do
+		if card.id == state.entity_dragged_id then
+			local x = mouse_pos.getRealX(love.mouse.getX())
+			local y = mouse_pos.getRealY(love.mouse.getY())
+			card.x_pos = x - card.dragging.x_diff
+			card.y_pos = y - card.dragging.y_diff
+		end
+	end
+	for _, card in ipairs(entities.entities.foundation1.cards) do
+		if card.id == state.entity_dragged_id then
+			local x = mouse_pos.getRealX(love.mouse.getX())
+			local y = mouse_pos.getRealY(love.mouse.getY())
+			card.x_pos = x - card.dragging.x_diff
+			card.y_pos = y - card.dragging.y_diff
+		end
+	end
+	for _, card in ipairs(entities.entities.foundation1.cards) do
 		if card.id == state.entity_dragged_id then
 			local x = mouse_pos.getRealX(love.mouse.getX())
 			local y = mouse_pos.getRealY(love.mouse.getY())

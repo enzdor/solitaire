@@ -1,7 +1,8 @@
 # Solitaire clone
 
 TODO:
-- add foundations
+- add passing (moving waste to stock)
+- add rules for moving cards?
 
 MAYBE:
 - make the are over a card be the whole card over the under card, not just the cursor (complications when card is over two cards, would have to check if cursor is over one or the other card, if it isn't over any go back to orig pos)

@@ -8,7 +8,7 @@ love.mousepressed = function(x, y, button)
 	-- drag card around
 	if button == 1 then
 		for _, entity in pairs(entities.entities) do
-			if entity.type ~= "stock" and entity.type ~= "board" and entity.type ~= "pile" then
+			if entity.type ~= "stock" and entity.type ~= "board" then
 				for _, card in ipairs(entity.cards) do
 					if x > card.x_pos and x < card.x_pos + state.card.width
 					    and y > card.y_pos and y < card.y_pos + state.card.height then
@@ -72,6 +72,38 @@ love.mousereleased = function(x, y, button)
 		end
 
 		for key, entity in pairs(entities.entities) do
+			if entity.type == "foundation" then
+				if x > entity.x_pos and x < entity.x_pos + state.card.width
+				    and y > entity.y_pos and y < entity.y_pos + state.card.height
+				then
+					local was_empty = entity.empty
+					if entity.empty then
+						entity.empty = false
+						entity.suit = card_dragged.suit
+					end
+					if was_empty or entity.suit == card_dragged.suit then
+						card_dragged.dragging.active = false
+						card_dragged.bottom = false
+						state.entity_dragged_id = 0
+						card_dragged.x_pos_orig = entity.x_pos
+						card_dragged.y_pos_orig = entity.y_pos
+						card_dragged.x_pos = entity.x_pos
+						card_dragged.y_pos = entity.y_pos
+						entities.entities[key].cards[#entities.entities[key].cards + 1] =
+						    card_dragged
+						table.remove(entities.entities[card_dragged_key].cards,
+							card_dragged_index)
+					else
+						card_dragged.x_pos = card_dragged.x_pos_orig
+						card_dragged.y_pos = card_dragged.y_pos_orig
+						card_dragged.dragging.active = false
+						state.entity_dragged_id = 0
+					end
+				end
+			end
+
+
+			-- REFACTOR STUFF BELOW
 			if entity.type == "pile" then
 				if entity.empty and x > entity.x_pos and x < entity.x_pos + state.card.width
 				    and y > entity.y_pos and y < entity.y_pos + state.card.height

@@ -3,6 +3,7 @@ local card = require("entities.card")
 local stock = require("entities.stock")
 local waste = require("entities.waste")
 local pile = require("entities.pile")
+local foundation = require("entities.foundation")
 local state = require("state")
 
 return {
@@ -12,6 +13,7 @@ return {
 			stock = stock(15, 10),
 			waste = waste(state.card.width + 25, 10),
 			pile1 = pile(15, 150),
+			foundation1 = foundation(state.card.width * 3 + 40, 10)
 		}
 
 		-- draw 52 cards (can probably do this better with modulo)
