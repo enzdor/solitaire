@@ -13,7 +13,6 @@ return function(x_pos, y_pos)
 	entity.y_pos = y_pos
 	entity.type = "pile"
 	entity.cards = {}
-	entity.empty = true
 
 	entity.draw = function(self)
 		love.graphics.setColor(state.palette.dark_green)

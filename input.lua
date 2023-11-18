@@ -11,7 +11,9 @@ love.mousepressed = function(x, y, button)
 			if entity.type ~= "stock" and entity.type ~= "board" then
 				for _, card in ipairs(entity.cards) do
 					if x > card.x_pos and x < card.x_pos + state.card.width
-					    and y > card.y_pos and y < card.y_pos + state.card.height then
+					    and y > card.y_pos and y < card.y_pos + state.card.height
+					    and card.face_up
+					then
 						card.dragging.active = true
 						card.dragging.x_diff = x - card.x_pos
 						card.dragging.y_diff = y - card.y_pos
@@ -92,9 +94,8 @@ love.mousereleased = function(x, y, button)
 				if x > entity.x_pos and x < entity.x_pos + state.card.width
 				    and y > entity.y_pos and y < entity.y_pos + state.card.height
 				then
-					local was_empty = entity.empty
-					if entity.empty then
-						entity.empty = false
+					local was_empty = #entity.cards < 1
+					if #entity.cards < 1 then
 						entity.suit = card_dragged.suit
 					end
 					if was_empty or entity.suit == card_dragged.suit then
@@ -121,10 +122,9 @@ love.mousereleased = function(x, y, button)
 
 			-- REFACTOR STUFF BELOW
 			if entity.type == "pile" then
-				if entity.empty and x > entity.x_pos and x < entity.x_pos + state.card.width
+				if #entity.cards < 1 and x > entity.x_pos and x < entity.x_pos + state.card.width
 				    and y > entity.y_pos and y < entity.y_pos + state.card.height
 				then
-					entity.empty = false
 					card_dragged.dragging.active = false
 					card_dragged.bottom = true
 					state.entity_dragged_id = 0

@@ -78,7 +78,7 @@ love.update = function(dt)
 			card.y_pos = y - card.dragging.y_diff
 		end
 	end
-	for _, card in ipairs(entities.entities.foundation1.cards) do
+	for _, card in ipairs(entities.entities.pile1.cards) do
 		if card.id == state.entity_dragged_id then
 			local x = mouse_pos.getRealX(love.mouse.getX())
 			local y = mouse_pos.getRealY(love.mouse.getY())

@@ -1,8 +1,7 @@
 # Solitaire clone
 
 TODO:
-- fix bug when moving one card to foundation can't move cards to stock
-- fix bug card not drawn when moved from pile to foundation
+- add possibility to move group of cards
 - add rules for moving cards?
 
 MAYBE:

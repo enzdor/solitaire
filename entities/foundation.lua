@@ -15,7 +15,6 @@ return function(x_pos, y_pos)
 	entity.y_pos = y_pos
 	entity.type = "foundation"
 	entity.cards = {}
-	entity.empty = true
 	entity.suit = ""
 
 	entity.draw = function(self)
