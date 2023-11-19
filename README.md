@@ -2,8 +2,7 @@
 
 TODO:
 - add possibility to move group of cards
-    - need to move cards below the card being held
-    - need to draw all of these cards
+    - cards below need to go back to orig pos if the dragged card is released
     - to be able to place cards
     - after cards are placed set new bottomost card in orginal pile
     - don't allow to move groups of cards to foundation
