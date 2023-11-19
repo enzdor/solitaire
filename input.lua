@@ -110,6 +110,11 @@ love.mousereleased = function(x, y, button)
 						    card_dragged
 						table.remove(entities.entities[card_dragged_key].cards,
 							card_dragged_index)
+						if #entities.entities[card_dragged_key].cards > 0
+						    and entities.entities[card_dragged_key].type == "pile" then
+							entities.entities[card_dragged_key]
+							.cards[#entities.entities[card_dragged_key].cards].bottom = true
+						end
 					else
 						card_dragged.x_pos = card_dragged.x_pos_orig
 						card_dragged.y_pos = card_dragged.y_pos_orig
