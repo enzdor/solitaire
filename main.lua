@@ -78,12 +78,22 @@ love.update = function(dt)
 			card.y_pos = y - card.dragging.y_diff
 		end
 	end
-	for _, card in ipairs(entities.entities.pile1.cards) do
+	for i, card in ipairs(entities.entities.pile1.cards) do
 		if card.id == state.entity_dragged_id then
 			local x = mouse_pos.getRealX(love.mouse.getX())
 			local y = mouse_pos.getRealY(love.mouse.getY())
-			card.x_pos = x - card.dragging.x_diff
-			card.y_pos = y - card.dragging.y_diff
+			if state.group_dragged then
+				local cards_drawn = 0
+				for j = i, #entities.entities.pile1.cards do
+					entities.entities.pile1.cards[j].x_pos = x - entities.entities.pile1.cards[j].dragging.x_diff
+					entities.entities.pile1.cards[j].y_pos = y -
+							entities.entities.pile1.cards[j].dragging.y_diff + cards_drawn * state.card.height / 4
+					cards_drawn = cards_drawn + 1
+				end
+			else
+				card.x_pos = x - card.dragging.x_diff
+				card.y_pos = y - card.dragging.y_diff
+			end
 		end
 	end
 	for _, card in ipairs(entities.entities.foundation1.cards) do

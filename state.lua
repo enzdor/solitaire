@@ -37,4 +37,5 @@ return {
 		y_translate = 0,
 	},
 	entity_dragged_id = 0, -- id of the entity being dragged
+	group_dragged = false,
 }

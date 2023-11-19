@@ -8,7 +8,7 @@ love.mousepressed = function(x, y, button)
 	-- drag card around
 	if button == 1 then
 		for _, entity in pairs(entities.entities) do
-			if entity.type ~= "stock" and entity.type ~= "board" then
+			if entity.type ~= "stock" and entity.type ~= "board" and entity.type ~= "pile" then
 				for _, card in ipairs(entity.cards) do
 					if x > card.x_pos and x < card.x_pos + state.card.width
 					    and y > card.y_pos and y < card.y_pos + state.card.height
@@ -18,6 +18,28 @@ love.mousepressed = function(x, y, button)
 						card.dragging.x_diff = x - card.x_pos
 						card.dragging.y_diff = y - card.y_pos
 						state.entity_dragged_id = card.id
+					end
+				end
+			elseif entity.type == "pile" then
+				for i, card in ipairs(entity.cards) do
+					if x > card.x_pos and x < card.x_pos + state.card.width
+					    and y > card.y_pos and y < card.y_pos + state.card.height
+					    and card.face_up
+					then
+						if card.bottom then
+							card.dragging.active = true
+							card.dragging.x_diff = x - card.x_pos
+							card.dragging.y_diff = y - card.y_pos
+							state.entity_dragged_id = card.id
+						else
+							state.group_dragged = true
+							state.entity_dragged_id = card.id
+							for j = i, #entity.cards do
+								entity.cards[j].dragging.active = true
+								entity.cards[j].dragging.x_diff = x - card.x_pos
+								entity.cards[j].dragging.y_diff = y - card.y_pos
+							end
+						end
 					end
 				end
 			end
@@ -123,7 +145,6 @@ love.mousereleased = function(x, y, button)
 					end
 				end
 			end
-
 
 			-- REFACTOR STUFF BELOW
 			if entity.type == "pile" then

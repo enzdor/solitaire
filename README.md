@@ -2,7 +2,14 @@
 
 TODO:
 - add possibility to move group of cards
+    - need to move cards below the card being held
+    - need to draw all of these cards
+    - to be able to place cards
+    - after cards are placed set new bottomost card in orginal pile
+    - don't allow to move groups of cards to foundation
+    - need to handle all of this for when the mouse button is released
 - add rules for moving cards?
+- increase area for putting cards over other cards to be the area of the card being held over the bottom card
 
 MAYBE:
 - make the are over a card be the whole card over the under card, not just the cursor (complications when card is over two cards, would have to check if cursor is over one or the other card, if it isn't over any go back to orig pos)
