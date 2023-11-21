@@ -111,11 +111,29 @@ love.mousereleased = function(x, y, button)
 			return
 		end
 
+		---------------------------
+
+		---  OVER A FOUNDATION  ---
+
+		---------------------------
+
 		for key, entity in pairs(entities.entities) do
 			if entity.type == "foundation" then
 				if x > entity.x_pos and x < entity.x_pos + state.card.width
 						and y > entity.y_pos and y < entity.y_pos + state.card.height
 				then
+					if state.group_dragged then
+						-- return card to orig position and return
+						for i = card_dragged_index, #entities.entities[card_dragged_key].cards do
+							entities.entities[card_dragged_key].cards[i].x_pos = entities.entities[card_dragged_key].cards
+									[i].x_pos_orig
+							entities.entities[card_dragged_key].cards[i].y_pos = entities.entities[card_dragged_key].cards
+									[i].y_pos_orig
+							entities.entities[card_dragged_key].cards[i].dragging.active = false
+						end
+						state.entity_dragged_id = 0
+						return
+					end
 					local was_empty = #entity.cards < 1
 					if #entity.cards < 1 then
 						entity.suit = card_dragged.suit
@@ -144,10 +162,15 @@ love.mousereleased = function(x, y, button)
 						state.entity_dragged_id = 0
 					end
 				end
-			end
 
-			-- REFACTOR STUFF BELOW
-			if entity.type == "pile" then
+				---------------------------
+
+				---     OVER A PILE     ---
+
+				---------------------------
+
+				-- REFACTOR STUFF BELOW
+			elseif entity.type == "pile" then
 				if #entity.cards < 1 and x > entity.x_pos and x < entity.x_pos + state.card.width
 						and y > entity.y_pos and y < entity.y_pos + state.card.height
 				then
@@ -187,20 +210,6 @@ love.mousereleased = function(x, y, button)
 						return
 					end
 				end
-
-				if not state.group_dragged then
-					card_dragged.x_pos = card_dragged.x_pos_orig
-					card_dragged.y_pos = card_dragged.y_pos_orig
-					card_dragged.dragging.active = false
-				else
-					state.group_dragged = false
-					for j = card_dragged_index, #entity.cards do
-						entities.entities[card_dragged_key].cards[j].x_pos = entities.entities[card_dragged_key].cards[j].x_pos_orig
-						entities.entities[card_dragged_key].cards[j].y_pos = entities.entities[card_dragged_key].cards[j].y_pos_orig
-						entities.entities[card_dragged_key].cards[j].dragging.active = false
-					end
-				end
-				state.entity_dragged_id = 0
 			end
 		end
 	end
